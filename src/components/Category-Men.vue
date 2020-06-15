@@ -1,19 +1,17 @@
 <template>
   <div class="category container">
-    <div class="card" v-for="item in itemlist" :key="item.id">
+    <div class="card" v-for="item in itemlist" :key="item.id" >
       <div class="card-content">
         <p class="pricetag indigo-text">{{ item.price }}€</p>
         <button class="btn-flat" @click="addToFavorite(item)">
-          <i ref="iconPointer" class="material-icons">{{changeIcon(item)}}</i>
+          <i class="material-icons" v-if="localFavorite.includes(item.id)"> favorite </i>
+          <i class="material-icons" v-else> favorite_border </i>
         </button>
         <h2 class="indigo-text">{{ item.titel }}</h2>
         <div class="description">
           <h5 class="name">{{ item.name}}</h5>
           <span>{{ item.description }}</span>
         </div>
-        <button class="btn-flat waves-effect waves-teal" @click="clearSession()">
-          <i class="material-icons">home</i>
-        </button>
       </div>
     </div>
   </div>
@@ -30,19 +28,18 @@ export default {
     };
   },
    computed: {
-  
   },
   methods: {
     addToFavorite: function(elem) {
       this.checkItemFavoritelist(elem);
-      this.setCurrentSession();
-      this.changeIcon(elem);
+      this.setCurrentSession(); 
     },
     checkItemFavoritelist: function(elem) {
       if (this.localFavorite.length == 0 || this.productIsNotInArray(elem)) {
         this.localFavorite.push(elem.id);
       } else {
         this.localFavorite = _.pull(this.localFavorite, elem.id);
+        location.reload();
       }
     },
     productIsNotInArray: function(elem) {
@@ -52,7 +49,6 @@ export default {
           return false;
         }
       }
-
       return true;
     },
     setCurrentSession: function() {
@@ -60,16 +56,8 @@ export default {
       let j = JSON.stringify(toStore);
       sessionStorage.setItem("currentList", j);
       console.log("Ende", this.localFavorite);
-    },
-    changeIcon: function (elem) {
-        if (this.localFavorite.includes(elem.id)) {
-            return "favorite"
-        }
-        return "favorite_border"
-    },
-    clearSession: function() {
-      sessionStorage.clear();
     }
+  
   }, 
   created: function() {
       if (sessionStorage.getItem("currentList") != null) {

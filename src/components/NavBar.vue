@@ -16,7 +16,7 @@
           </a>
         </li>
         <li>
-          <a @click="log">
+          <a @click="clearCurrentSession">
             <i class="material-icons md-dark">store</i>
           </a>
         </li>
@@ -52,19 +52,19 @@ export default {
   name: "NavBar",
   data() {
     return {
-      localFavorite: null
     };
   },
   methods: {
     enterFavorite() {
-      this.$router.push({ name: "Favorite", params: { favoriteList: [] } });
+      this.$router.push({ name: "Favorite", params: {} });
     },
     enterHome() {
       this.$router.push({ name: "Welcome", params: {} });
     },
-    log () {
-        console.log(this.localFavorite)
-        location.reload()
+    clearCurrentSession: function() {
+      sessionStorage.clear();
+      alert("Clearing current session")
+      location.reload();
     }
   },
   created: function() {
