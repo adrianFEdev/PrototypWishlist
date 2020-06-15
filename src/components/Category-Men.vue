@@ -3,7 +3,7 @@
     <div class="card" v-for="item in itemlist" :key="item.id" >
       <div class="card-content">
         <p class="pricetag indigo-text">{{ item.price }}€</p>
-        <button class="btn-flat" @click="addToFavorite(item)">
+        <button :key="updateIcon" class="btn-flat" @click="addToFavorite(item)">
           <i class="material-icons" v-if="localFavorite.includes(item.id)"> favorite </i>
           <i class="material-icons" v-else> favorite_border </i>
         </button>
@@ -24,7 +24,8 @@ export default {
   name: "Category-Men",
   data() {
     return {
-      localFavorite: []
+      localFavorite: [],
+      updateIcon: 0
     };
   },
    computed: {
@@ -32,14 +33,15 @@ export default {
   methods: {
     addToFavorite: function(elem) {
       this.checkItemFavoritelist(elem);
-      this.setCurrentSession(); 
+      this.setCurrentSession();
+      this.updateIcon += 1; 
     },
     checkItemFavoritelist: function(elem) {
       if (this.localFavorite.length == 0 || this.productIsNotInArray(elem)) {
         this.localFavorite.push(elem.id);
       } else {
         this.localFavorite = _.pull(this.localFavorite, elem.id);
-        location.reload();
+        //location.reload();
       }
     },
     productIsNotInArray: function(elem) {
@@ -82,6 +84,7 @@ export default {
     grid-gap: 30px;
     margin-top: 60px;
   }
+}
 
   @media screen and (max-width: 750px) {
     .category {
@@ -100,5 +103,5 @@ export default {
       margin-top: 60px;
     }
   }
-}
+
 </style>
