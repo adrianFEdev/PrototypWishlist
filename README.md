@@ -1,6 +1,6 @@
 # wishlist
 
-> wishlist prototyp vuejs
+> wishlist mock prototyp implementation build in vuejs
 
 ## Build Setup
 
