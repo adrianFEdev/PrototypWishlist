@@ -51,25 +51,24 @@
 export default {
   name: "NavBar",
   data() {
-    return {
-    };
+    return {};
   },
   methods: {
     enterFavorite() {
-      this.$router.push({ name: "Favorite", params: {} });
+      if (this.$router.name != "Favorite") {
+        this.$router.push({ name: "Favorite", params: {} });
+      }
     },
     enterHome() {
       this.$router.push({ name: "Welcome", params: {} });
     },
     clearCurrentSession: function() {
       sessionStorage.clear();
-      alert("Clearing current session")
+      alert("Clearing current session");
       location.reload();
     }
   },
-  created: function() {
-
-  }
+  created: function() {}
 };
 </script>
 
@@ -82,7 +81,7 @@ export default {
   position: absolute;
   width: 20%;
   height: auto;
-  background-color: rgb(0, 225, 255);
+  background-color: rgb(68, 68, 68);
 }
 .material-icons.md-dark {
   color: rgb(0, 0, 0);
