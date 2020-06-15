@@ -1,6 +1,6 @@
 # wishlist
 
-> wishlist mock prototyp implementation build in vuejs
+> wishlist mock prototype implementation build in vuejs
 
 
 > Adobe XD mobile/app version prototype click-dummy =>
